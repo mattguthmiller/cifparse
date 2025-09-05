@@ -8,6 +8,8 @@ class Base(TableBase):
     st: str
     sec_code: str
     sub_code: str
+    start_lat: float
+    start_lon: float
     record_number: int
     cycle_data: str
 
@@ -16,6 +18,8 @@ class Base(TableBase):
         self.st = None
         self.sec_code = None
         self.sub_code = None
+        self.start_lat = None
+        self.start_lon = None
         self.record_number = None
         self.cycle_data = None
 
@@ -26,6 +30,8 @@ class Base(TableBase):
         self.st = extract_field(line, w_bas.st)
         self.sec_code = extract_field(line, w_bas.sec_code)
         self.sub_code = extract_field(line, w_bas.sub_code)
+        self.start_lat = extract_field(line, w_bas.start_lat)
+        self.start_lon = extract_field(line, w_bas.start_lon)
         self.record_number = extract_field(line, w_bas.record_number)
         self.cycle_data = extract_field(line, w_bas.cycle_data)
         return self
@@ -35,6 +41,8 @@ class Base(TableBase):
             "st",
             "sec_code",
             "sub_code",
+            "start_lat",
+            "start_lon"
         ]
 
     def ordered_trailing(self) -> list:
@@ -54,6 +62,8 @@ class Base(TableBase):
             "st": self.st,
             "sec_code": self.sec_code,
             "sub_code": self.sub_code,
+            "start_lat": self.start_lat,
+            "start_lon": self.start_lon
         }
 
     def get_trailing_dict(self) -> dict:

@@ -8,6 +8,8 @@ class BaseIndices:
         self.sec_code = (4, 5, field_54)
         self.sub_code = (5, 6, field_55)
         # PAD 7
+        self.start_lat = (13, 16, field_5141)
+        self.start_lon = (16, 20, field_5142)
         #
         # OTHER
         # FIELDS
@@ -19,8 +21,7 @@ class BaseIndices:
 class PrimaryIndices(BaseIndices):
     def __init__(self):
         super().__init__()
-        self.start_lat = (13, 16, field_5141)
-        self.start_lon = (16, 20, field_5142)
+
         # PAD 10
         self.mora_1 = (30, 33, field_5143)
         self.mora_2 = (33, 36, field_5143)

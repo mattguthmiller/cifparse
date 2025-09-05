@@ -11,9 +11,9 @@ class BaseIndices:
         self.airport_region = (10, 12, field_514)
         self.sub_code = (12, 13, field_55)
         self.comm_type = (13, 16, field_5101)
+        self.freq_unit = (24, 25, field_5104)
         self.comm_freq = (16, 23, field_5103)
         self.gt = (23, 24, field_5182)
-        self.freq_unit = (24, 25, field_5104)
         #
         # OTHER
         # FIELDS
