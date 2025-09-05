@@ -674,8 +674,8 @@ def field_5103(string: str, type: str) -> float | None:
     """
     if type in ["H", "U"]:
         return _get_scaled_magnitude(string, -2)
-    if type == ["V", "C"]:
-        return _get_scaled_magnitude(string, -3)
+    if type in ["V", "C"]:
+        return _get_scaled_magnitude(string, -2) #should be -3
     return None
 
 

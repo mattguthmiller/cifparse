@@ -175,8 +175,8 @@ class CIFP:
             self._effective_to = effective_to_obj.strftime("%Y-%m-%d")
         return
 
-    def to_db(self, db_file_path: str) -> None:
-        if os.path.exists(db_file_path):
+    def to_db(self, db_file_path: str, overwrite: bool = False, primary_source: bool = True) -> None:
+        if overwrite and os.path.exists(db_file_path):
             os.remove(db_file_path)
 
         connection = connect(db_file_path)
@@ -217,7 +217,7 @@ class CIFP:
             self._enroute_comms.to_db(db_cursor)
 
         if self._heliports:
-            self._heliports.to_db(db_cursor)
+            self._heliports.to_db(db_cursor, process3LDs=not primary_source)
 
         if self._heli_terminal_waypoints:
             self._heli_terminal_waypoints.to_db(db_cursor)
@@ -235,7 +235,7 @@ class CIFP:
             self._heli_terminal_comms.to_db(db_cursor)
 
         if self._airports:
-            self._airports.to_db(db_cursor)
+            self._airports.to_db(db_cursor, process3LDs=not primary_source)
 
         if self._gates:
             self._gates.to_db(db_cursor)

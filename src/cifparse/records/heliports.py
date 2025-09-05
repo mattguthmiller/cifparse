@@ -91,7 +91,7 @@ class Heliports:
             result.append(record.to_dict())
         return result
 
-    def to_db(self, db_cursor: Cursor) -> None:
+    def to_db(self, db_cursor: Cursor, process3LDs: bool = False) -> None:
         primary = []
         continuation = []
         planning = []
@@ -99,6 +99,18 @@ class Heliports:
 
         print("    Processing Heliports")
         for heliport in self.records:
+            # Airports with 3LDs
+            if process3LDs:
+                if heliport.primary.heliport_id and (
+                        len(heliport.primary.heliport_id) == 3 or not heliport.primary.heliport_id.isalpha()):
+                    # Don't process if in the US since we'll already have those from NASR
+                    if (heliport.primary.area and heliport.primary.area == "USA") or (heliport.primary.heliport_region and (
+                            heliport.primary.heliport_region[0] == "K" or heliport.primary.heliport_region[
+                        0] == "P" or heliport.primary.heliport_region == "TJ")):
+                        continue
+                    else:
+                        heliport.primary.heliport_id = heliport.primary.heliport_region + heliport.primary.heliport_id
+
             if heliport.has_primary():
                 primary.append(heliport.primary)
             if heliport.has_continuation():

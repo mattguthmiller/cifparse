@@ -3,6 +3,8 @@ from cifparse.functions.field import extract_field
 from .base import Base
 from .widths import w_pri
 
+from tzfpy import get_tz
+
 
 class Primary(Base):
     cont_rec_no: int
@@ -72,6 +74,9 @@ class Primary(Base):
         self.transition_level = extract_field(line, w_pri.transition_level)
         self.usage = extract_field(line, w_pri.usage)
         self.time_zone = extract_field(line, w_pri.time_zone)
+        if self.time_zone is None or self.time_zone == "":
+            tmz = get_tz(self.lon, self.lat)
+            self.time_zone = tmz
         self.daylight_ind = extract_field(line, w_pri.daylight_ind)
         self.mag_true = extract_field(line, w_pri.mag_true)
         self.datum_code = extract_field(line, w_pri.datum_code)

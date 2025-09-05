@@ -5,8 +5,8 @@ from .widths import w_pri
 
 
 class Primary(Base):
-    start_lat: float
-    start_lon: float
+    # start_lat: float
+    # start_lon: float
     mora_1: int
     mora_2: int
     mora_3: int
@@ -40,8 +40,8 @@ class Primary(Base):
 
     def __init__(self):
         super().__init__("moras")
-        self.start_lat = None
-        self.start_lon = None
+        # self.start_lat = None
+        # self.start_lon = None
         self.mora_1 = None
         self.mora_2 = None
         self.mora_3 = None
@@ -75,8 +75,8 @@ class Primary(Base):
 
     def from_line(self, line: str) -> "Primary":
         super().from_line(line)
-        self.start_lat = extract_field(line, w_pri.start_lat)
-        self.start_lon = extract_field(line, w_pri.start_lon)
+        # self.start_lat = extract_field(line, w_pri.start_lat)
+        # self.start_lon = extract_field(line, w_pri.start_lon)
         self.mora_1 = extract_field(line, w_pri.mora_1)
         self.mora_2 = extract_field(line, w_pri.mora_2)
         self.mora_3 = extract_field(line, w_pri.mora_3)
@@ -114,8 +114,8 @@ class Primary(Base):
         result.extend(super().ordered_leading())
         result.extend(
             [
-                "start_lat",
-                "start_lon",
+                # "start_lat",
+                # "start_lon",
                 "mora_1",
                 "mora_2",
                 "mora_3",
@@ -155,8 +155,8 @@ class Primary(Base):
         leading_dict = super().get_leading_dict()
         trailing_dict = super().get_trailing_dict()
         this_dict = {
-            "start_lat": self.start_lat,
-            "start_lon": self.start_lon,
+            # "start_lat": self.start_lat,
+            # "start_lon": self.start_lon,
             "mora_1": self.mora_1,
             "mora_2": self.mora_2,
             "mora_3": self.mora_3,

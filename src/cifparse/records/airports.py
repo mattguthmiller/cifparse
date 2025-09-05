@@ -91,7 +91,7 @@ class Airports:
             result.append(record.to_dict())
         return result
 
-    def to_db(self, db_cursor: Cursor) -> None:
+    def to_db(self, db_cursor: Cursor, process3LDs: bool = False) -> None:
         primary = []
         continuation = []
         planning = []
@@ -99,6 +99,15 @@ class Airports:
 
         print("    Processing Airports")
         for airport in self.records:
+            # Airports with 3LDs
+            if process3LDs:
+                if airport.primary.airport_id and (len(airport.primary.airport_id) == 3 or not airport.primary.airport_id.isalpha()):
+                    # Don't process if in the US since we'll already have those from NASR
+                    if (airport.primary.area and airport.primary.area == "USA") or (airport.primary.airport_region and (airport.primary.airport_region[0] == "K" or airport.primary.airport_region[0] == "P" or airport.primary.airport_region == "TJ")):
+                        continue
+                    else:
+                        airport.primary.airport_id = airport.primary.airport_region + airport.primary.airport_id
+
             if airport.has_primary():
                 primary.append(airport.primary)
             if airport.has_continuation():
